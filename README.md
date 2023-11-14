@@ -16,6 +16,7 @@ Este repositório contém a API principal do Super Easy Backoffice, um sistema f
 - **Swagger:** Ferramenta para documentação de APIs.
 - **Prettier e ESLint:** Ferramentas para manter o código limpo e consistente.
 - **bcrypt:** Biblioteca para hash de senhas.
+- **JWT Token:** Json Web Tokens para autenticações.
 
 <br>
 
@@ -100,6 +101,52 @@ O Swagger UI é uma interface interativa que permite explorar e testar os endpoi
 
 Para interagir com os endpoints da API, você pode usar ferramentas como Postman, Insomnia ou Thunder Client no Visual Studio Code. Acesse a documentação Swagger em [http://localhost:3000/swagger](http://localhost:3000/swagger) para obter detalhes sobre os endpoints e parâmetros necessários.
 
+
+<br>
+
+## 📄 **Autenticação - Token JWT**
+
+Este serviço lida com a criação e validação de tokens JWT (JSON Web Tokens) para autenticação.
+
+### **Métodos Principais:**
+
+- `createToken(customer: Customer): { accessToken: string }`: Cria um token JWT com base nas informações do cliente.
+
+- `checkToken(token: string)`: Verifica a validade de um token JWT.
+
+- `isTokenValid(token: string): boolean`: Verifica se um token é válido.
+
+- `login(email: string, password: string): { accessToken: string }`: Autentica um cliente com base no e-mail e senha fornecidos.
+
+- `forget(email: string): boolean`: Envia um e-mail de recuperação de senha para o cliente.
+
+- `reset(password: string, token: string): { accessToken: string }`: Reinicia a senha do cliente com base em um token válido.
+
+- `register(data: AuthRegisterDTO): { accessToken: string }`: Registra um novo cliente e cria um token para autenticação.
+
+### **AuthController (Controlador de Autenticação)**
+
+Este controlador gerencia as rotas relacionadas à autenticação.
+
+### **Principais Rotas:**
+
+- **`POST /auth/login`**: Rota para autenticar um cliente com e-mail e senha.
+
+- **`POST /auth/register`**: Rota para registrar um novo cliente.
+
+- **`POST /auth/forget`**: Rota para solicitar recuperação de senha enviando um e-mail ao cliente.
+
+- **`POST /auth/reset`**: Rota para redefinir a senha do cliente com base em um token válido.
+
+- **`POST /auth/myself`**: Rota protegida para verificar os direitos de acesso do cliente (necessita de autenticação).
+
+## **AuthGuard (Guarda de Autenticação)**
+
+Este guarda (guard) protege rotas que exigem autenticação, verificando a validade e decodificando o token JWT presente no cabeçalho da solicitação.
+
+### **Método Principal:**
+
+- `canActivate(context: ExecutionContext): Promise<boolean>`: Verifica se o token JWT é válido e decodifica as informações do cliente, tornando-as disponíveis no objeto de solicitação (`request`).
 
 <br>
 
