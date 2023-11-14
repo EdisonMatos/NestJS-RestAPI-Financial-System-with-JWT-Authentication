@@ -1,0 +1,68 @@
+on:
+  pull_request:
+    branches:
+      - "**"
+    paths-ignore:
+      - "**/*.md"
+  workflow_dispatch:
+
+name: Standard
+
+jobs:
+
+  ci_docker_dev:
+    name: CI Docker - Dev
+    if: ${{ success() && github.event_name != 'pull_request_target' && github.event_name != 'push'}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub Event Name
+        id: github_event_name
+        run: echo '${{ github.event_name }}'
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: qzzdocker24/se-backoffice:${{ github.sha}}, qzzdocker24/se-backoffice:latest
+
+  deploy:
+    name: Deploy to K8S
+    needs: ci_docker_dev
+    if: ${{ success() && github.event_name != 'pull_request_target' && github.event_name != 'push'}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub Event Name
+        id: github_event_name
+        run: echo '${{ github.event_name }}'
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 
+      - name: Set image tag 
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq -i '.makima-ms.image.tag = "${{ github.sha}}"' 'devops/helm/values.yaml'
+      - name: Commit tag
+        run: |
+          git config --local user.email "biel_surf159@hotmail.com"
+          git config --local user.name "GabSnow24"
+          git commit -am "chore: change image tag to ${{ github.sha}}"
+      - name: Update image version 
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.head_ref }}
+          force: true
+

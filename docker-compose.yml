@@ -1,0 +1,9 @@
+version: '3.3'
+
+services:
+  bot-wpp:
+    container_name: bot-wpp
+    image: qzzdocker24/se-backoffice:55d5ceb034be686e87315e2d6eea3d7554f4bfca
+    env_file:
+      - .env
+  

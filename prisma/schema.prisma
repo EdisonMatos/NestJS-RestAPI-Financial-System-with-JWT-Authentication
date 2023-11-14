@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Customer {
+  id           String        @id @default(uuid())
+  name         String
+  email        String        @unique
+  password     String
+  obligations  Obligation[]
+  incomings    Income[]
+  subscription Subscription?
+  phone        String        @unique
+  birthdate    String
+  role         Role          @default(Customer)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Membership {
+  id           String         @id @default(uuid())
+  subscription Subscription[]
+  price        Float
+  name         MembershipType @default(Personal)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model Subscription {
+  id           String     @id @default(uuid())
+  membership   Membership @relation(fields: [membershipId], references: [id])
+  membershipId String
+  customer     Customer   @relation(fields: [customerId], references: [id])
+  customerId   String     @unique
+  isPaid       Boolean    @default(false)
+  startDate    DateTime   @default(now())
+  endDate      DateTime   @default(dbgenerated("NOW() + interval '1 month'"))
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model Obligation {
+  id          String   @id @default(uuid())
+  customer    Customer @relation(fields: [customerId], references: [id])
+  customerId  String
+  name        String
+  description String
+  dueDate     String
+  paymentDate String
+  price       Float
+  isPaid      Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Income {
+  id          String   @id @default(uuid())
+  customer    Customer @relation(fields: [customerId], references: [id])
+  customerId  String
+  name        String
+  description String
+  dueDate     String
+  receiptDate String
+  price       Float
+  isPaid      Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum MembershipType {
+  Test
+  Personal
+  Business
+}
+
+enum Role {
+  Admin
+  Customer
+}
