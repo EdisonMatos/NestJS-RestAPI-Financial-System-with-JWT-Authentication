@@ -21,16 +21,14 @@ Este repositório contém a API principal do Super Easy Backoffice, um sistema f
 
 ## 📋 Pré-requisitos  
 
-Antes de iniciar, certifique-se de ter as seguintes ferramentas instaladas:
+- **Node.js e npm:** Baixe em [https://nodejs.org/](https://nodejs.org/).
+- **Git:** Baixe em [https://git-scm.com/](https://git-scm.com/).
+- **Docker Desktop:** Necessário para o banco de dados PostgreSQL. Baixe em [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop).
+- **Ferramentas de Teste de API:** <br>
+Postman [https://www.postman.com/downloads/](https://www.postman.com/downloads/)<br>
+Insomnia [https://insomnia.rest/download/](https://insomnia.rest/download/)<br>
+Ou Thunder Client (extensão no Visual Studio Code).
 
-- **Node.js e npm:** [Download Node.js](https://nodejs.org/).
-- **Docker e Docker Compose:** [Download Docker](https://www.docker.com/products/docker-desktop).
-- **Swagger Stats:** [Mais informações aqui](https://github.com/slanatech/swagger-stats).
-- **Express Actuator:** [Mais informações aqui](https://www.npmjs.com/package/express-actuator).
-- **Prometheus e Grafana:** [Mais informações aqui](https://prometheus.io/) e [Grafana](https://grafana.com/).
-- **Jest e Supertest:** [Mais informações aqui](https://jestjs.io/) e [Supertest](https://www.npmjs.com/package/supertest).
-- **Prettier e ESLint:** [Mais informações aqui](https://prettier.io/) e [ESLint](https://eslint.org/).
-- **bcrypt:** [Mais informações aqui](https://www.npmjs.com/package/bcrypt).
 
 <br>
 
@@ -90,7 +88,22 @@ Antes de iniciar, certifique-se de ter as seguintes ferramentas instaladas:
 
 <br>
 
-## 📄 Código
+## 📘 Documentação com Swagger
+
+O Swagger UI é uma interface interativa que permite explorar e testar os endpoints da API de forma visual. Para acessar o Swagger UI e explorar os endpoints deste projeto, após ter iniciado a aplicação, acesse: [localhost:3000/swagger](localhost:3000/swagger).
+
+<img src="https://static1.smartbear.co/swagger/media/images/tools/opensource/swagger_ui.png" alt="drawing" width="500"/></img>
+
+<br>
+
+## 🚀 Fazendo Requisições para a API
+
+Para interagir com os endpoints da API, você pode usar ferramentas como Postman, Insomnia ou Thunder Client no Visual Studio Code. Acesse a documentação Swagger em [http://localhost:3000/swagger](http://localhost:3000/swagger) para obter detalhes sobre os endpoints e parâmetros necessários.
+
+
+<br>
+
+## 📄 Endpoints
 
 ### Endpoints
 
@@ -310,10 +323,31 @@ Endpoint para excluir um cliente.
 DELETE /customer/:id
 ```
 
-## 👨‍💻 Autor
+## 🧑‍💻 Autores
 
-Edison Matos é um entusiasta da tecnologia, desenvolvedor backend de software e apaixonado por criar soluções inovadoras.
+Este projeto foi desenvolvido por Edison Matos.
+
+![Edison Matos](https://avatars.githubusercontent.com/u/17342047?s=200)
+
+Edison Matos é um entusiasta da tecnologia, desenvolvedor backend de software e apaixonado por criar soluções inovadoras.<br>
+Saiba mais sobre no [GitHub](https://github.com/EdisonMatos) para descobrir mais projetos e colaborações.
+
+<br>
+
+## 🤝 Contribuição
+
+Se deseja contribuir para o desenvolvimento deste projeto, siga os passos abaixo:
+
+1. Faça um fork do projeto.
+2. Crie uma branch para suas alterações: `git checkout -b feature/nome-da-sua-feature`.
+3. Faça as alterações desejadas e commit: `git commit -m 'Adiciona nova feature'`.
+4. Push para a branch: `git push origin feature/nome-da-sua-feature`.
+5. Abra um pull request para revisão.
+
+
+<br>
 
 ## 📄 Licença
 
 Este projeto é licenciado sob a Licença MIT.
+
