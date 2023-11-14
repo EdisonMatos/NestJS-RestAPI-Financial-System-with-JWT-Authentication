@@ -1,4 +1,4 @@
-# 🚀 Super Easy Backoffice API
+# 🚀 Super Easy Backoffice API - Sistema de Gestão Financeira
 
 ## 📜 Descrição
 
