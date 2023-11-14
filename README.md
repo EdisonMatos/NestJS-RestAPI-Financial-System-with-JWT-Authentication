@@ -38,7 +38,7 @@ Ou Thunder Client (extensão no Visual Studio Code).
 1. **Clonar o Repositório:**
 
     ```bash
-    git clone https://github.com/EdisonMatos/NestJS-RestAPI-Financial-System-with-Postgres-on-Docker.git
+    git clone https://github.com/EdisonMatos/NestJS-RestAPI-Financial-System-with-Postgres-on-Docker-and-JWT.git
     ```
 
 2. **Instalar Dependências:**
